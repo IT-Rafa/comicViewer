@@ -1,0 +1,32 @@
+﻿<Window x:Class="ComicViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComicViewer"
+        mc:Ignorable="d"
+        Title="Comic Viewer"  Height="600" Width="1000">
+    <DockPanel >
+
+        <Grid x:Name="menuGrid" DockPanel.Dock="Top">
+            <Menu DockPanel.Dock="Top" >
+                <MenuItem  Header="File" >
+                    <MenuItem Header="Add image" Name="addImage" Click="addImage_Click" />
+                    <MenuItem Header="Add image list" Name="addImageList" Click="addImageList_Click" />
+
+                </MenuItem>
+                <Separator />
+                <MenuItem  Header="Image" >
+                    <MenuItem Header="Other" Name="MnOther" />
+                </MenuItem>
+            </Menu>
+        </Grid>
+           
+        <ScrollViewer>
+            <Image Source= "C:\Users\it-ra\OneDrive\Escritorio\istockphoto-944317714-1024x1024.jpg"
+                    x:Name="imagePicture" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"  />
+        </ScrollViewer>
+
+    </DockPanel>
+
+</Window>

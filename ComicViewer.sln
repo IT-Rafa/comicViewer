@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicViewer", "ComicViewer.csproj", "{8998EC48-01CF-45D6-85F6-96E387268EAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8998EC48-01CF-45D6-85F6-96E387268EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8998EC48-01CF-45D6-85F6-96E387268EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8998EC48-01CF-45D6-85F6-96E387268EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8998EC48-01CF-45D6-85F6-96E387268EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3056C70-3C15-45CC-B364-DF9156E815D1}
+	EndGlobalSection
+EndGlobal
