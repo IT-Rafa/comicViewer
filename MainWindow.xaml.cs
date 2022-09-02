@@ -12,8 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO.Compression;
+using System.Reflection;
+using System.IO;
 
 namespace ComicViewer
 {
@@ -26,12 +27,19 @@ namespace ComicViewer
         {
             InitializeComponent();
         }
-
+        /**
+         * Open new image
+         * 
+         */
         private void addImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "jpg files (*.jpg)|*.jpg";
-            dialog.InitialDirectory = @"%USERPROFILE%\OneDrive\Escritorio\";
+
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            var iconPath = Path.Combine(outPutDirectory, "resource\\Img.jpg");
+            string icon_path = new Uri(iconPath).LocalPath;
+            dialog.InitialDirectory = icon_path;
             dialog.Title = "Please select an image file.";
             if (dialog.ShowDialog() == true)
             {
@@ -39,14 +47,19 @@ namespace ComicViewer
                 imagePicture.Source = new BitmapImage(fileUri);
             }
         }
-
+        /**
+         * Open comic (cbr, cbz)
+         * 
+         */
         private void addImageList_Click(object sender, RoutedEventArgs e)
         {
-            String extractPath = "C:/Users/it-ra/OneDrive/Escritorio/extract";
+            String extractPath = @"%USERPROFILE%\OneDrive\Escritorio\extract";
+
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "cb* files (*.cbr)|*.cbr";
             dialog.InitialDirectory = @"%USERPROFILE%\OneDrive\Escritorio\";
             dialog.Title = "Please select an comic file.";
+
             if (dialog.ShowDialog() == true)
             {
                 Uri cbFile = new Uri(dialog.FileName);

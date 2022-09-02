@@ -23,7 +23,7 @@
         </Grid>
            
         <ScrollViewer>
-            <Image Source= "C:\Users\it-ra\OneDrive\Escritorio\istockphoto-944317714-1024x1024.jpg"
+            <Image Source="resources/imagen.jpg"
                     x:Name="imagePicture" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"  />
         </ScrollViewer>
 
