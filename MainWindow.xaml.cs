@@ -36,10 +36,7 @@ namespace ComicViewer
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "jpg files (*.jpg)|*.jpg";
 
-            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
-            var iconPath = Path.Combine(outPutDirectory, "resource\\Img.jpg");
-            string icon_path = new Uri(iconPath).LocalPath;
-            dialog.InitialDirectory = icon_path;
+            dialog.InitialDirectory = "\\resources\\";
             dialog.Title = "Please select an image file.";
             if (dialog.ShowDialog() == true)
             {
