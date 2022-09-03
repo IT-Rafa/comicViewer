@@ -15,4 +15,8 @@
     <Resource Include="resources/imagen.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="resources\extract\" />
+  </ItemGroup>
+
 </Project>

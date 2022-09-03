@@ -34,9 +34,9 @@ namespace ComicViewer
         private void addImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "jpg files (*.jpg)|*.jpg";
+            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
 
-            dialog.InitialDirectory = "\\resources\\";
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             dialog.Title = "Please select an image file.";
             if (dialog.ShowDialog() == true)
             {
@@ -48,25 +48,19 @@ namespace ComicViewer
          * Open comic (cbr, cbz)
          * 
          */
-        private void addImageList_Click(object sender, RoutedEventArgs e)
+        private void addComic_Click(object sender, RoutedEventArgs e)
         {
-            String extractPath = @"%USERPROFILE%\OneDrive\Escritorio\extract";
 
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "cb* files (*.cbr)|*.cbr";
-            dialog.InitialDirectory = @"%USERPROFILE%\OneDrive\Escritorio\";
+            dialog.Filter = "Comic Files(*.cbr; *.cbz;)|*.cbr; *.cbz";
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             dialog.Title = "Please select an comic file.";
 
             if (dialog.ShowDialog() == true)
             {
-                Uri cbFile = new Uri(dialog.FileName);
-                Uri extractFile = new Uri(extractPath);
-                MessageBox.Show(cbFile.AbsolutePath);
                 try
                 {
-                    MessageBox.Show(extractFile.AbsolutePath);
-
-                    ZipFile.ExtractToDirectory(cbFile.AbsolutePath, extractFile.AbsolutePath, true);
+                    ZipFile.ExtractToDirectory(dialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
                 }
                 catch (Exception ex)
                 {

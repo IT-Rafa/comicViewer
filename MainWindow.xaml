@@ -12,7 +12,7 @@
             <Menu DockPanel.Dock="Top" >
                 <MenuItem  Header="File" >
                     <MenuItem Header="Add image" Name="addImage" Click="addImage_Click" />
-                    <MenuItem Header="Add image list" Name="addImageList" Click="addImageList_Click" />
+                    <MenuItem Header="Add comic file" Name="addComicFile" Click="addComic_Click" />
 
                 </MenuItem>
                 <Separator />
