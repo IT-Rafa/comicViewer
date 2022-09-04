@@ -50,7 +50,9 @@ namespace ComicViewer
          */
         private void addComic_Click(object sender, RoutedEventArgs e)
         {
-
+            //Path.GetTempFileName();
+            String extractPath = Environment.GetFolderPath(
+                            Environment.SpecialFolder.Desktop) + "\\extract";
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Comic Files(*.cbr; *.cbz;)|*.cbr; *.cbz";
             dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -58,9 +60,11 @@ namespace ComicViewer
 
             if (dialog.ShowDialog() == true)
             {
+                Boolean fileOk = false;
                 try
                 {
-                    ZipFile.ExtractToDirectory(dialog.FileName, Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
+                    ZipFile.ExtractToDirectory(dialog.FileName, extractPath, true);
+                    fileOk = true;
                 }
                 catch (Exception ex)
                 {
@@ -68,6 +72,14 @@ namespace ComicViewer
                         "A handled exception just occurred: "
                         + ex.Message, "Exception Sample");
                 }
+
+                if (fileOk)
+                {
+                    string[] filePaths = Directory.GetFiles(extractPath);
+                    Uri fileUri = new Uri(filePaths[0]);
+                    imagePicture.Source = new BitmapImage(fileUri);
+                }
+
 
             }
         }
