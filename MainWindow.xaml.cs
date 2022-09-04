@@ -23,6 +23,12 @@ namespace ComicViewer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<string> filePaths = new();
+        private int imageIndex;
+        /**
+         * Open new image
+         * 
+         */
         public MainWindow()
         {
             InitializeComponent();
@@ -31,32 +37,40 @@ namespace ComicViewer
          * Open new image
          * 
          */
-        private void addImage_Click(object sender, RoutedEventArgs e)
+        private void AddImage_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            dialog.Title = "Please select an image file.";
+            OpenFileDialog dialog = new()
+            {
+                Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Title = "Please select an image file."
+            };
             if (dialog.ShowDialog() == true)
             {
-                Uri fileUri = new Uri(dialog.FileName);
+                filePaths.Add(dialog.FileName);
+                imageIndex = 0;
+
+                Uri fileUri = new(filePaths[imageIndex]);
                 imagePicture.Source = new BitmapImage(fileUri);
+
             }
         }
         /**
          * Open comic (cbr, cbz)
          * 
          */
-        private void addComic_Click(object sender, RoutedEventArgs e)
+        private void AddComic_Click(object sender, RoutedEventArgs e)
         {
             //Path.GetTempFileName();
             String extractPath = Environment.GetFolderPath(
                             Environment.SpecialFolder.Desktop) + "\\extract";
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Comic Files(*.cbr; *.cbz;)|*.cbr; *.cbz";
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            dialog.Title = "Please select an comic file.";
+
+            OpenFileDialog dialog = new()
+            {
+                Filter = "Comic Files(*.cbr; *.cbz;)|*.cbr; *.cbz",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Title = "Please select an comic file."
+            };
 
             if (dialog.ShowDialog() == true)
             {
@@ -64,6 +78,10 @@ namespace ComicViewer
                 try
                 {
                     ZipFile.ExtractToDirectory(dialog.FileName, extractPath, true);
+
+                    filePaths.Clear();
+                    filePaths = Directory.GetFiles(extractPath).ToList<String>();
+                    imageIndex = 0;
                     fileOk = true;
                 }
                 catch (Exception ex)
@@ -75,13 +93,26 @@ namespace ComicViewer
 
                 if (fileOk)
                 {
-                    string[] filePaths = Directory.GetFiles(extractPath);
-                    Uri fileUri = new Uri(filePaths[0]);
+                    
+                    Uri fileUri = new(filePaths[imageIndex]);
+
                     imagePicture.Source = new BitmapImage(fileUri);
+
                 }
 
 
             }
+        }
+
+        private void ImagePicture_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (filePaths.Count > imageIndex)
+            {
+                Uri fileUri = new(filePaths[++imageIndex]);
+                imagePicture.Source = new BitmapImage(fileUri);
+                imagePicture.StretchDirection = StretchDirection.UpOnly;
+            }
+
         }
     }
 }
