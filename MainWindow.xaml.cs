@@ -24,6 +24,8 @@ namespace ComicViewer
     public partial class MainWindow : Window
     {
         private List<string> filePaths = new();
+        private List<double> vertical = new();
+        private string actualComic;
         private int imageIndex;
         /**
          * Open new image
@@ -48,9 +50,12 @@ namespace ComicViewer
             if (dialog.ShowDialog() == true)
             {
                 filePaths.Add(dialog.FileName);
+                vertical.Add(0);
                 imageIndex = 0;
 
+
                 Uri fileUri = new(filePaths[imageIndex]);
+                this.Title = "Comic Viewer: [" + Path.GetDirectoryName(dialog.FileName) + " " + Path.GetFileName(dialog.FileName) + "]";
                 imagePicture.Source = new BitmapImage(fileUri);
 
             }
@@ -80,7 +85,15 @@ namespace ComicViewer
                     ZipFile.ExtractToDirectory(dialog.FileName, extractPath, true);
 
                     filePaths.Clear();
+                    vertical.Clear();
+
+                    actualComic = dialog.FileName;
                     filePaths = Directory.GetFiles(extractPath).ToList<String>();
+                    
+                    foreach (String file in filePaths)
+                    {
+                        vertical.Add(0);
+                    }
                     imageIndex = 0;
                     fileOk = true;
                 }
@@ -95,6 +108,8 @@ namespace ComicViewer
                 {
                     
                     Uri fileUri = new(filePaths[imageIndex]);
+                    this.Title = "Comic Viewer: [" + Path.GetFileName(actualComic) + " - " + Path.GetFileName(filePaths[imageIndex]) + "]";
+
 
                     imagePicture.Source = new BitmapImage(fileUri);
 
@@ -106,11 +121,38 @@ namespace ComicViewer
 
         private void ImagePicture_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            MoveToNextImage();
+        }
+        private void MoveToNextImage()
+        {
+            vertical[imageIndex] = imageContainer.ActualHeight;
+
             if (filePaths.Count > imageIndex)
             {
                 Uri fileUri = new(filePaths[++imageIndex]);
+                this.Title = "Comic Viewer: [" + Path.GetFileName(actualComic) + " - " + Path.GetFileName(filePaths[imageIndex]) + "]";
+
                 imagePicture.Source = new BitmapImage(fileUri);
-                imagePicture.StretchDirection = StretchDirection.UpOnly;
+                imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+            }
+
+        }
+
+        private void ImagePicture_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MoveToPreviousImage();
+        }
+        private void MoveToPreviousImage()
+        {
+            vertical[imageIndex] = imageContainer.ActualHeight;
+
+            if (imageIndex != 0)
+            {
+                Uri fileUri = new(filePaths[--imageIndex]);
+                this.Title = "Comic Viewer: [" + Path.GetFileName(actualComic) + " - " + Path.GetFileName(filePaths[imageIndex]) + "]";
+
+                imagePicture.Source = new BitmapImage(fileUri);
+                imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
             }
 
         }
