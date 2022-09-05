@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IdJ1IATrBleiECli0FmkCvk3zKGze4lCG5ztJ3MwXeYrqglzMnOy7UYt3gpAvLNCHIny8iGdOY3USk8BET+DmQ==",
+  "dgSpecHash": "7I8p14+Mu4EEbqVa+UBip4gDPpvylivftaBlk/+4QtUhCzABkfxQBcXgR4MrPo+BQJb3dgwq2KNC5aR3fOj70A==",
   "success": true,
-  "projectFilePath": "D:\\source\\Windows_GUI\\comicViewer\\ComicViewer.csproj",
+  "projectFilePath": "D:\\source\\Windows_IDE\\comicViewer\\ComicViewer.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

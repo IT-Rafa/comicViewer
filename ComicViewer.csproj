@@ -8,15 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="resources\extract\**" />
+    <EmbeddedResource Remove="resources\extract\**" />
+    <None Remove="resources\extract\**" />
+    <Page Remove="resources\extract\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="resources/imagen.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="resources/imagen.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="resources\extract\" />
   </ItemGroup>
 
 </Project>

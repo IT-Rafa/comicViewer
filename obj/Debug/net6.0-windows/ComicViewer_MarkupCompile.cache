@@ -4,12 +4,12 @@
 winexe
 C#
 .cs
-D:\source\Windows_GUI\comicViewer\obj\Debug\net6.0-windows\
+D:\source\Windows_IDE\comicViewer\obj\Debug\net6.0-windows\
 ComicViewer
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\source\Windows_GUI\comicViewer\App.xaml
+D:\source\Windows_IDE\comicViewer\App.xaml
 11407045341
 
 3-1233169557
