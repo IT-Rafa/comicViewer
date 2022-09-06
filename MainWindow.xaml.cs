@@ -1,21 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.IO.Compression;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.IO.Compression;
-using System.Reflection;
-using System.IO;
-using System.Resources;
 
 namespace ComicViewer
 {
@@ -26,7 +17,6 @@ namespace ComicViewer
     {
         private readonly List<string>  filePaths = new();
         private readonly List<double> vertical = new();
-        private string actualComic = "";
         private int imageIndex = 0;
 
         /**
@@ -58,7 +48,6 @@ namespace ComicViewer
 
             if (dialog.ShowDialog() == true)
             {
-                actualComic = Path.GetFileName(dialog.FileNames[0]);
                 imageIndex = 0;
 
                 filePaths.Clear();
@@ -72,9 +61,8 @@ namespace ComicViewer
 
                 Uri fileUri = new(filePaths[imageIndex]);
                 this.Title = "Comic Viewer: Folder [" + Path.GetDirectoryName(filePaths[imageIndex]) +
-                    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
+                    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]" + vertical[imageIndex];
                 imagePicture.Source = new BitmapImage(fileUri);
-
             }
         }
         /**
@@ -98,8 +86,10 @@ namespace ComicViewer
             if (dialog.ShowDialog() == true)
             {
                 Boolean fileOk = false;
+
                 try
                 {
+                    if(dialog.FileName.)
                     ZipFile.ExtractToDirectory(dialog.FileName, extractPath, true);
 
                     imageIndex = 0;
@@ -107,7 +97,7 @@ namespace ComicViewer
                     filePaths.Clear();
                     vertical.Clear();
 
-                    filePaths.AddRange(extractPath);
+                    filePaths.AddRange(Directory.GetFiles(extractPath));
                     for (int x = 0; x < filePaths.Count; x++)
                     {
                         vertical.Add(0);
@@ -125,7 +115,9 @@ namespace ComicViewer
                 if (fileOk)
                 {
                     Uri fileUri = new(filePaths[imageIndex]);
-                    this.Title = "Comic Viewer: [" + Path.GetFileName(actualComic) + " - " + Path.GetFileName(filePaths[imageIndex]) + "]";
+
+                    this.Title = "Comic Viewer: Folder [" + Path.GetDirectoryName(filePaths[imageIndex]) +
+                        "] [" + Path.GetFileName(filePaths[imageIndex]) + "]" + vertical[imageIndex];
 
                     imagePicture.Source = new BitmapImage(fileUri);
 
@@ -141,15 +133,17 @@ namespace ComicViewer
         }
         private void MoveToNextImage()
         {
-            vertical[imageIndex] = imageContainer.ActualHeight;
+            vertical[imageIndex] = imageContainer.VerticalOffset;
 
             if (imageIndex >=0 && imageIndex < (filePaths.Count - 1))
             {
                 Uri fileUri = new(filePaths[++imageIndex]);
+
                 this.Title = "Comic Viewer: Folder [" + Path.GetDirectoryName(filePaths[imageIndex]) +
-                    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
+                    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]" + vertical[imageIndex];
                 imagePicture.Source = new BitmapImage(fileUri);
                 imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+
             }
 
         }
@@ -160,15 +154,17 @@ namespace ComicViewer
         }
         private void MoveToPreviousImage()
         {
-            vertical[imageIndex] = imageContainer.ActualHeight;
+            vertical[imageIndex] = imageContainer.VerticalOffset;
 
             if (imageIndex > 0 && imageIndex < (filePaths.Count))
             {
                 Uri fileUri = new(filePaths[--imageIndex]);
-                this.Title = "Comic Viewer: Folder [" + Path.GetDirectoryName(filePaths[0]) +
-    "] [" + Path.GetFileName(filePaths[0]) + "]";
+
+                this.Title = "Comic Viewer: Folder [" + Path.GetDirectoryName(filePaths[imageIndex]) +
+                    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]" + vertical[imageIndex];
                 imagePicture.Source = new BitmapImage(fileUri);
                 imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+
             }
 
         }
