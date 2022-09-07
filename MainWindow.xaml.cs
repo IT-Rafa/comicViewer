@@ -1,12 +1,17 @@
 ﻿using Microsoft.Win32;
+using SharpCompress.Archives;
+using SharpCompress.Archives.Rar;
+using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ComicViewer
 {
@@ -89,7 +94,21 @@ namespace ComicViewer
 
                 try
                 {
-                    if(dialog.FileName.)
+                    //
+                    using (var archive = RarArchive.Open(dialog.FileName))
+                    {
+                        foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+                        {
+                            entry.WriteToDirectory(extractPath, new ExtractionOptions()
+                            {
+
+                            });
+                        }
+                    }
+
+
+
+
                     ZipFile.ExtractToDirectory(dialog.FileName, extractPath, true);
 
                     imageIndex = 0;
