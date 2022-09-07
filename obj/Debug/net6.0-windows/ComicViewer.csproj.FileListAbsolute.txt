@@ -64,3 +64,6 @@ D:\source\Windows_GUI\comicViewer\obj\Debug\net6.0-windows\ref\ComicViewer.dll
 D:\source\Windows_GUI\comicViewer\bin\Debug\net6.0-windows\Aspose.Zip.dll
 D:\source\Windows_GUI\comicViewer\bin\Debug\net6.0-windows\SharpCompress.dll
 D:\source\Windows_GUI\comicViewer\obj\Debug\net6.0-windows\ComicViewer.csproj.CopyComplete
+D:\source\Windows_IDE\ComicViewer\bin\Debug\net6.0-windows\Aspose.Zip.dll
+D:\source\Windows_IDE\ComicViewer\bin\Debug\net6.0-windows\SharpCompress.dll
+D:\source\Windows_IDE\ComicViewer\obj\Debug\net6.0-windows\ComicViewer.csproj.CopyComplete

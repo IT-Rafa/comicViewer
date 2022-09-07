@@ -22,7 +22,7 @@
             </Menu>
         </Grid>
 
-        <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" IsDeferredScrollingEnabled="True">
+        <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" IsDeferredScrollingEnabled="True" MouseWheel="ImageContainer_MouseWheel">
             <Image Source="resources/imagen.jpg"
                     x:Name="imagePicture" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" MouseLeftButtonDown="ImagePicture_MouseLeftButtonDown" MouseRightButtonDown="ImagePicture_MouseRightButtonDown"  />
         </ScrollViewer>
