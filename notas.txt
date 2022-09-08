@@ -1,0 +1,9 @@
+Abrir comics
+
+- Extrar archivos dentro de la carpeta del programa (source)
+
+- Menu
+	- Abrir comic
+	- Abrir imágenes
+
+- Después abrir comic, mostrar carpeta previa

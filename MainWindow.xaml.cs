@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Resources;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -22,6 +23,7 @@ namespace ComicViewer
         private readonly List<double> vertical = new();
         private int imageIndex = 0;
         private string comicActual = "";
+        private string lastFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         /**
          * Open new image
@@ -46,7 +48,7 @@ namespace ComicViewer
             {
                 Multiselect = true,
                 Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                InitialDirectory = lastFolder,
                 Title = "Please select an image file."
             };
 
@@ -58,7 +60,10 @@ namespace ComicViewer
                 vertical.Clear();
 
                 filePaths.AddRange(dialog.FileNames);
-                for(int x= 0; x < filePaths.Count; x++)
+
+                lastFolder = dialog.FileNames[0];
+
+                for (int x= 0; x < filePaths.Count; x++)
                 {
                     vertical.Add(0);
                 }
@@ -73,15 +78,14 @@ namespace ComicViewer
          * Open comic (cbr, cbz)
          * 
          */
-        private void AddComic_Click(object sender, RoutedEventArgs e)
-        {
-            String extractPath = Environment.GetFolderPath(
-                            Environment.SpecialFolder.Desktop) + "\\extract";
+        private void AddComic_Click(object sender, RoutedEventArgs e) { 
+        
+            string extractPath = "resources/extract/";
 
             OpenFileDialog dialog = new()
             {
                 Filter = "Comic Files(*.cbr; *.cbz;)|*.cbr; *.cbz",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                InitialDirectory = lastFolder,
                 Title = "Please select an comic file."
             };
 
@@ -133,6 +137,7 @@ namespace ComicViewer
                     if(fileOk)
                     {
                         filePaths.AddRange(Directory.GetFiles(extractPath));
+                        lastFolder = dialog.FileNames[0];
                         for (int x = 0; x < filePaths.Count; x++)
                         {
                             vertical.Add(0);
