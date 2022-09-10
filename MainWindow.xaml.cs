@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
+
 namespace ComicViewer
 {
     /// <summary>
@@ -80,7 +81,7 @@ namespace ComicViewer
          */
         private void AddComic_Click(object sender, RoutedEventArgs e) { 
         
-            string extractPath = "resources/extract/";
+            string extractPath = "D:\\source\\Windows_IDE\\ComicViewer\\resources\\extract";
 
             OpenFileDialog dialog = new()
             {
@@ -209,6 +210,7 @@ namespace ComicViewer
         {
             MoveToPreviousImage();
         }
+
         private void MoveToPreviousImage()
         {
             vertical[imageIndex] = imageContainer.VerticalOffset;

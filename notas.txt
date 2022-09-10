@@ -1,9 +1,9 @@
 Abrir comics
 
-- Extrar archivos dentro de la carpeta del programa (source)
-
+- Extrar archivos del comic en carpeta extract, que se borra cada vez
 - Menu
 	- Abrir comic
 	- Abrir imágenes
 
-- Después abrir comic, mostrar carpeta previa
+- Después abrir comic o imagenes,
+	si abrimos otro comic o imagenes, usar última carpeta
