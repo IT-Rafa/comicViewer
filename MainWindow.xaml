@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComicViewer"
         mc:Ignorable="d"
-        Title="Comic Viewer: No source"  Height="600" Width="1000">
+        Title="Comic Viewer: No source"  Height="600" Width="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <DockPanel >
 
         <Grid x:Name="menuGrid" DockPanel.Dock="Top">
@@ -22,7 +22,7 @@
             </Menu>
         </Grid>
 
-        <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" IsDeferredScrollingEnabled="True" MouseWheel="ImageContainer_MouseWheel">
+        <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" IsDeferredScrollingEnabled="True" ScrollChanged="ImageContainer_ScrollChanged" >
             <Image Source="resources/imagen.jpg"
                     x:Name="imagePicture" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" MouseLeftButtonDown="ImagePicture_MouseLeftButtonDown" MouseRightButtonDown="ImagePicture_MouseRightButtonDown"  />
         </ScrollViewer>

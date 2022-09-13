@@ -4,6 +4,7 @@ using SharpCompress.Archives.Rar;
 using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace ComicViewer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly List<string>  filePaths = new();
+        private readonly List<string> filePaths = new();
         private readonly List<double> vertical = new();
         private int imageIndex = 0;
         private string comicActual = "";
@@ -64,7 +65,7 @@ namespace ComicViewer
 
                 lastFolder = dialog.FileNames[0];
 
-                for (int x= 0; x < filePaths.Count; x++)
+                for (int x = 0; x < filePaths.Count; x++)
                 {
                     vertical.Add(0);
                 }
@@ -79,8 +80,9 @@ namespace ComicViewer
          * Open comic (cbr, cbz)
          * 
          */
-        private void AddComic_Click(object sender, RoutedEventArgs e) { 
-        
+        private void AddComic_Click(object sender, RoutedEventArgs e)
+        {
+
             string extractPath = "D:\\source\\Windows_IDE\\ComicViewer\\resources\\extract";
 
             OpenFileDialog dialog = new()
@@ -113,8 +115,9 @@ namespace ComicViewer
                     }
 
 
-                    if (dialog.FileName.EndsWith(".cbr")){
-                        
+                    if (dialog.FileName.EndsWith(".cbr"))
+                    {
+
                         using (var archive = RarArchive.Open(dialog.FileName))
                         {
                             foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
@@ -129,13 +132,14 @@ namespace ComicViewer
 
                     }
 
-                    else if (dialog.FileName.EndsWith(".cbz")){
+                    else if (dialog.FileName.EndsWith(".cbz"))
+                    {
                         ZipFile.ExtractToDirectory(dialog.FileName, extractPath, true);
                         fileOk = true;
 
                     }
 
-                    if(fileOk)
+                    if (fileOk)
                     {
                         filePaths.AddRange(Directory.GetFiles(extractPath));
                         lastFolder = dialog.FileNames[0];
@@ -180,13 +184,29 @@ namespace ComicViewer
 
         private void ImagePicture_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MoveToNextImage();
+            e.Handled = true;
+
+            if (e.ClickCount == 1)
+            {
+                MoveToNextImage();
+            }
+
+            else if(e.ClickCount > 1)
+            {
+                MoveToNextComic();
+            } 
         }
+
+        private void MoveToNextComic()
+        {
+            throw new NotImplementedException();
+        }
+
         private void MoveToNextImage()
         {
             vertical[imageIndex] = imageContainer.VerticalOffset;
 
-            if (imageIndex >=0 && imageIndex < (filePaths.Count - 1))
+            if (imageIndex >= 0 && imageIndex < (filePaths.Count - 1))
             {
                 ++imageIndex;
 
@@ -208,7 +228,23 @@ namespace ComicViewer
 
         private void ImagePicture_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MoveToPreviousImage();
+            e.Handled = true;
+
+            if (e.ClickCount == 1)
+            {
+                MoveToPreviousImage();
+            }
+
+            else if (e.ClickCount > 1)
+            {
+                MoveToPreviousComic();
+            }
+            
+        }
+
+        private void MoveToPreviousComic()
+        {
+            throw new NotImplementedException();
         }
 
         private void MoveToPreviousImage()
@@ -221,7 +257,7 @@ namespace ComicViewer
 
                 this.Title = "Comic Viewer: Comic [" + Path.GetFileName(comicActual) +
                     "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
-                
+
                 BitmapImage image = new();
                 image.BeginInit();
                 image.CacheOption = BitmapCacheOption.OnLoad;
@@ -234,9 +270,19 @@ namespace ComicViewer
 
         }
 
-        private void ImageContainer_MouseWheel(object sender, MouseWheelEventArgs e)
+
+
+        private void ImageContainer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
         {
-            
+            if (e.VerticalChange >= 0)
+            {
+                if (e.VerticalOffset + e.ViewportHeight == e.ExtentHeight)
+                {
+                    MoveToNextImage();
+                }
+            }
         }
+
+
     }
 }
