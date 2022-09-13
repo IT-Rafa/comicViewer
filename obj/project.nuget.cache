@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lYvu21/3WLINaiVHL5ZtCHw68QZKh1+uRRuXhBvsHcI17P7F2MS9Xvgy/xzAaXym15/q2sllMMjYM0vnYwWd7Q==",
+  "dgSpecHash": "YTmpbUbRDtjfx26HvI/oK6J7Aau0Ixqg9sQfJiSV6lVmvHwnsC+XOCOT3d+B60QnydHMtdXPCAC1+ueotz6hEg==",
   "success": true,
-  "projectFilePath": "D:\\source\\Windows_IDE\\ComicViewer\\ComicViewer.csproj",
+  "projectFilePath": "D:\\source\\Windows_IDE\\comicViewer\\ComicViewer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\it-ra\\.nuget\\packages\\aspose.zip\\22.8.0\\aspose.zip.22.8.0.nupkg.sha512",
     "C:\\Users\\it-ra\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",

@@ -83,7 +83,8 @@ namespace ComicViewer
         private void AddComic_Click(object sender, RoutedEventArgs e)
         {
 
-            string extractPath = "D:\\source\\Windows_IDE\\ComicViewer\\resources\\extract";
+            string extractPath = System.IO.Path.GetTempPath() + "comicViewerExtract";
+            Directory.CreateDirectory(extractPath);
 
             OpenFileDialog dialog = new()
             {
@@ -191,15 +192,35 @@ namespace ComicViewer
                 MoveToNextImage();
             }
 
-            else if(e.ClickCount > 1)
+            else if (e.ClickCount > 1)
             {
                 MoveToNextComic();
-            } 
+            }
         }
 
         private void MoveToNextComic()
         {
-            throw new NotImplementedException();
+            imageIndex++;
+            if (filePaths[imageIndex] == null)
+            {
+                imageIndex = --imageIndex;
+            }
+            else
+            {
+                this.Title = "Comic Viewer: Comic [" + Path.GetFileName(comicActual) +
+                        "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
+
+                BitmapImage image = new();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = new Uri(filePaths[imageIndex]);
+                image.EndInit();
+                imagePicture.Source = image;
+
+                imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+
+            }
+
         }
 
         private void MoveToNextImage()
@@ -239,7 +260,7 @@ namespace ComicViewer
             {
                 MoveToPreviousComic();
             }
-            
+
         }
 
         private void MoveToPreviousComic()
